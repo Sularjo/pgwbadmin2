@@ -124,6 +124,7 @@ class ProjectController extends Controller
         $project->deskripsi = $request->deskripsi;
         $project->tanggal = $request->tanggal;
         $project->save();
+        // dd($validateData);
         project::find($id)->update($validateData);
         Session::flash('update', 'Selamat!!! Project Anda Berhasil Diupdate');
         return redirect('admin/masterproject');

@@ -23,15 +23,15 @@
         </ul>
     </div>
     @endif
-    {{-- <div class="input-group mb-3 mt-3">
-        <input type="text" class="form-control" id="jenis_kontak" name="jenis_kontak">
-        <a class="btn btn-outline-secondary" href="{{ route('jkontak.store') }}">Tambah</a>
-    </div> --}}
+    <form action="/jeniskontak/store" method="post">
+        @csrf
+        <div class="input-group mb-3 mt-3">
+            <input type="text" class="form-control" id="jenis_kontak" name="jenis_kontak">
+            <button class="btn btn-outline-secondary" type="submit">Tambah</button>
+        </div>
+    </form>
 
    {{-- <input type="text" width="100px"> --}}
-   @if (auth()->user()->role==0)
-   <a href="{{ route('jkontak.create') }}" class="btn btn-outline-success" style="margin-left: 850px">Tambah Jenis Kontak</a>
-   @endif
  </div>
     <div class="card-body text-center">
     <table class="table">
@@ -50,8 +50,12 @@
                  <td> {{ $j_kontak->jenis_kontak }} </td>
                  @if (auth()->user()->role==0)
                  <td class="text-center">
-                    <a href="{{ route('jkontak.edit', $j_kontak->id)  }}" class="btn btn-sm btn-warning btn-circle"><i class="fas fa-edit"></i></a>
-                    <a href="{{ route('jkontak.hapus', $j_kontak->id)  }}" class="btn btn-sm btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                    <form action="/jeniskontak/delete/{{ $j_kontak->id }}" method="post">
+                        @csrf
+                    <button type="submit" class="btn btn-sm btn-danger btn-circle"><i class="fas fa-trash"></i></button>
+                </form>
+                    {{-- <a href="{{ route('jkontak.edit', $j_kontak->id)  }}" class="btn btn-sm btn-warning btn-circle"><i class="fas fa-edit"></i></a>
+                    <a href="{{ route('jkon tak.hapus', $j_kontak->id)  }}" class="btn btn-sm btn-danger btn-circle"><i class="fas fa-trash"></i></a> --}}
                  </td>
                  @endif
              </tr>
@@ -83,10 +87,12 @@
              <tr>
                  <td> {{ $item->nisn }} </td>
                  <td> {{ $item->nama }} </td>
+
                  <td class="text-center">
                      <a onclick="show({{ $item->id }})" class="btn btn-sm btn-info btn-circle"><i class="fas fa-folder-open"> </i></a>
                      @if (auth()->user()->role==0)
-                     <a href="{{ route('master_k.create', $item->id)   }}" class="btn btn-sm btn-success btn-circle"><i class="fas fa-plus"> </i></a>
+                     <a href="{{ url('admin/mastercontact/create', $item->id)   }}" class="btn btn-sm btn-success btn-circle"><i class="fas fa-plus"> </i></a>
+
                      @endif
                  </td>
              </tr>
@@ -113,9 +119,9 @@
 </div>
 <script>
 function show(id){
-    $.get('master_k/'+id, function(data){
+    $.get('/admin/mastercontact/'+id, function(data){
         $('#project').html(data);
-    })
+    });
 }
 </script>
 

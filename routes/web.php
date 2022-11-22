@@ -8,7 +8,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\JeniscontactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,12 +45,14 @@ Route::get('/admin', [DashboardController::class,'tampil']);
 Route::get('/admin/mastersiswa/{id_siswa}/hapus', [SiswaController::class, 'hapus'])->name('mastersiswa.hapus');
 Route::resource('/admin/mastersiswa', SiswaController::class);
 Route::resource('/admin/mastercontact', ContactController::class);
+Route::get('/admin/mastercontact/create/{id}', [ContactController::class, 'create']);
+Route::post('/admin/mastercontact/storek', [ContactController::class, 'store']);
+Route::post('/admin/mastercontact', [ContactController::class,'j_store'])->name("jkontak.store");
 Route::resource('/admin/masterproject', ProjectController::class);
 Route::get('/admin/masterproject/create/{id_siswa}', [ProjectController::class, 'tambah'])->name('masterproject.tambah');
 Route::get('/admin/masterproject/{id_siswa}/hapus', [ProjectController::class, 'hapus'])->name('masterproject.hapus');
-Route::resource('/admin/jeniscontact', JeniscontactController::class);
-
-
-
+Route::post('/jeniskontak/store', [ContactController::class, 'j_store']);
+Route::post('/jeniskontak/delete/{id}', [ContactController::class, 'j_destroy']);
+Route::post('/jeniskontak/hapus/{id}', [ContactController::class, 'j_hapus']);
 
 });

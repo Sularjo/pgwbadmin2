@@ -22,7 +22,7 @@
 
             <!-- Main Content -->
             <div id="content">
-            
+
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -39,7 +39,7 @@
             <!-- footer -->
                 @include('layout.footer')
             <!-- end footer -->
-           
+
 
         </div>
         <!-- End of Content Wrapper -->

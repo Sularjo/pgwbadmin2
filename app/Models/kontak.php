@@ -20,8 +20,8 @@ class kontak extends Model
         return $this->belongsTo('App\Models\siswa' , 'siswa_id');
     }
 
-    public function kontak()
-    {
-        return $this->belongsTo('App\Models\jenis_kontak' , 'jenis_kontak_id');
-    }
+    // public function kontak()
+    // {
+    //     return $this->belongsTo('App\Models\jenis_kontak' , 'jenis_kontak');
+    // }
 }

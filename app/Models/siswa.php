@@ -21,12 +21,12 @@ class siswa extends Model
 
     public function kontak()
     {
-        return $this->belongsToMany('App\Models\jenis_kontak')->withPivot('deskripsi');
+        return $this->belongsToMany('App\Models\jenis_kontak')->withPivot('id','deskripsi');
     }
 
     public function project()
     {
-        return $this->hasMany('App\Models\project','id_siswa');
+        return $this->hasMany('App\Models\project','siswa_id');
     }
 }
 

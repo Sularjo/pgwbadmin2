@@ -19,9 +19,11 @@ class ContactController extends Controller
     public function index()
     {
         $data = siswa::paginate(5);
-        $data_jkontak = jenis_kontak::paginate(5);
 
-        return view('master_kontak', compact('data', 'data_jkontak'));
+        $data_jkontak = jenis_kontak::paginate(5);
+        $page = 'mastercontact';
+
+        return view('dashboard.contact.index', compact('page','data', 'data_jkontak'));
         //
     }
 
@@ -34,7 +36,8 @@ class ContactController extends Controller
     {
         $siswa = siswa::find($id);
         $j_kontak = jenis_kontak::all();
-        return view('tambah_kontak', compact('siswa', 'j_kontak'));
+        $page = 'mastercontact';
+        return view('dashboard.contact.create', compact('page', 'siswa', 'j_kontak'));
         //
     }
 
@@ -60,13 +63,13 @@ class ContactController extends Controller
         ], $masage);
 
         kontak::create([
-            'siswa_id' => $request->id_siswa,
+            'siswa_id' => $request->siswa_id,
             'jenis_kontak_id' => $request->jenis_kontak,
             'deskripsi' => $request->deskripsi
         ]);
 
         Session::flash('success', "kontak berhasil ditambahkan!!");
-        return redirect('/master_k');
+        return redirect('/admin/mastercontact');
     }
 
     /**
@@ -82,7 +85,7 @@ class ContactController extends Controller
         // $kontak = siswa::find($id)->kontak()->get()::paginate(1);
         // $data = kontak::paginate(1);
         // return $kontak;
-        return view('show_kontak', compact('kontak'));
+        return view('dashboard.contact.show', compact('kontak'));
     }
 
     /**
@@ -95,11 +98,13 @@ class ContactController extends Controller
     {
         // $contact = siswa::find($id)->kontak()->get();
         // $contact = siswa::find($id)->jenis_kontak()->get();
+        $siswa = siswa::find($id);
         $kontak = kontak::find($id);
         $j_kontak = jenis_kontak::all();
+        $page ="edit";
         // $kontak = kontak::get();
         // return($contact);
-        return view('edit_kontak', compact('kontak', 'j_kontak'));
+        return view('dashboard.contact.edit', compact('kontak', 'page','j_kontak','siswa'));
         //
     }
 
@@ -126,12 +131,12 @@ class ContactController extends Controller
         ], $masage);
 
         $kontak = kontak::find($id);
-        $kontak->jenis_kontak_id = $request->jenis_kontak;
+        $kontak->jenis_kontak_id = $request->jenis_kontak_id;
         $kontak->deskripsi = $request->deskripsi;
 
         $kontak->save();
         Session::flash('success', "kontak berhasil diupdate!!");
-        return redirect('master_k');
+        return redirect('admin/mastercontact');
         //
     }
 
@@ -141,11 +146,48 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function hapus($id)
+    public function destroy($id)
+    {
+        $kontak = kontak::find($id)->delete();
+        Session::flash('success', "kontak berhasil dihapus!!");
+        return redirect()->back();
+    }
+
+
+    public function j_store(Request $request)
+    {
+        $masage = [
+            'required' => ':attribute harus diisi',
+            'min' => ':attribute minimal :min karakter',
+            'max' => ':attribute maximal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+            'mimes' => ':attribute harus bertipe foto'
+        ];
+
+        $this->validate($request, [
+            'jenis_kontak' => 'required'
+        ], $masage);
+
+        jenis_kontak::create([
+            'jenis_kontak' => $request->jenis_kontak
+        ]);
+
+        Session::flash('success', "kontak berhasil ditambahkan!!");
+        return redirect()->back();
+    }
+
+    public function j_destroy($id)
+    {
+        $siswa = jenis_kontak::find($id)->delete();
+        Session::flash('success', "kontak berhasil ditambahkan!!");
+        return redirect()->back();
+    }
+
+    public function j_hapus($id)
     {
         $siswa = kontak::find($id)->delete();
-        Session::flash('success', "kontak berhasil dihapus!!");
-        return redirect('/master_p');
+        Session::flash('success', "kontak berhasil ditambahkan!!");
+        return redirect()->back();
     }
 
 }

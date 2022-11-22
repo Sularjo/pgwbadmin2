@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('kontak', function (Blueprint $table) {
             $table->id();
+            $table->Biginteger('id_siswa')->unsigned();
             $table->unsignedBigInteger('id_siswa');
             $table->foreign('id_siswa')->references('id')->on('siswa')
                   ->onDelete('cascade')
