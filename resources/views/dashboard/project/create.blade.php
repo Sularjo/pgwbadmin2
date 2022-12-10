@@ -20,7 +20,7 @@
                 @endif
                 <form method="post" action="{{ route('masterproject.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id_siswa" value="{{ $siswa->id }}">
+                    <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
                     <div class="form-group">
                         <label for="nama_project">Nama Project</label>
                         <input type="text" class="form-control" id="nama_project" name='nama_project' value="{{ old('nama_project') }}">

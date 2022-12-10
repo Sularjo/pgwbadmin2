@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kontak', function (Blueprint $table) {
+        Schema::create('jenis_kontak_siswa', function (Blueprint $table) {
             $table->id();
-            $table->Biginteger('id_siswa')->unsigned();
-            $table->unsignedBigInteger('id_siswa');
-            $table->foreign('id_siswa')->references('id')->on('siswa')
+            // $table->Biginteger('id_siswa')->unsigned();
+            $table->unsignedBigInteger('siswa_id');
+            $table->foreign('siswa_id')->references('id')->on('siswa')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->unsignedBigInteger('id_jenis');
-            $table->foreign('id_jenis')->references('id')->on('jenis_kontak')
+            $table->unsignedBigInteger('jenis_kontak_id');
+            $table->foreign('jenis_kontak_id')->references('id')->on('jenis_kontak')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->char('deskripsi');

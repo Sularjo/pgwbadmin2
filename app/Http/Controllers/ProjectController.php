@@ -59,7 +59,7 @@ class ProjectController extends Controller
 
         // Insert Data
         project::create([
-            'id_siswa'=>$request->id_siswa,
+            'siswa_id'=>$request->siswa_id,
             'nama_project'=>$request->nama_project,
             'deskripsi'=>$request->deskripsi,
             'tanggal'=>$request->tanggal,

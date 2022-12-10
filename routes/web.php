@@ -32,8 +32,8 @@ Route::get('/contact', [LandingController::class,'contact']);
 
 });
 
-// Route::get('/register', [RegisterController::class,'index']);
-// Route::post('/register', [RegisterController::class,'tambah'])->name('register.tambah');
+Route::get('/register', [RegisterController::class,'index']);
+Route::post('/register', [RegisterController::class,'tambah'])->name('register.tambah');
 
 
 
